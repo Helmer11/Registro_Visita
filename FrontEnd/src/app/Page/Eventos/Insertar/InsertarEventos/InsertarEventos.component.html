@@ -1,0 +1,19 @@
+<form [formGroup]="formEvento">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label" >Nombre</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" formControlName="nombre" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Descripcion </label>
+    <textarea  class="form-control" rows="10" cols="30" formControlName="Descripcion"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Fecha</label>
+    <input type="date" class="form-control"  formControlName="fecha" id="exampleCheck1">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Hora</label>
+    <input type="time" class="form-control" formControlName="hora" id="exampleCheck1">
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="setAddEvento()">Agrgar</button>
+</form>

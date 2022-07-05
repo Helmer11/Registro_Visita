@@ -1,0 +1,47 @@
+<button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#exampleModal" >Agregar Visitante</button>
+
+
+<section>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of Visitante " >
+        <th scope="row">{{v.visitanteId}} </th>
+        <td>{{ v.visitaNombre }}</td>
+        <td>{{ v.visitaApellido }}</td>
+        <td>{{ v.registroFecha | date }}</td>
+        <td>{{ v.registroFecha | date: "shortTime" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</section>
+
+
+<div class="modal" id="exampleModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Visitante</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-AddVisitante></app-AddVisitante>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
