@@ -7,17 +7,22 @@ import { HistoricoComponent } from './Page/Historico/Historico.component';
 
  export const routes: Routes = [{
     path : "",
-    component:LayoutComponent,
+    component: LayoutComponent,
     children: [
       {
         path: "Visitante",
         component: Lista_VisitanteComponent,
-
       },
-      // {
-      //   path:"Eventos",
-      //   component: Lista_EventosComponent
-      // }
+      {
+        path:"Eventos",
+        component: Lista_EventosComponent
+      },
+      {
+        path:"Historico",
+        component: HistoricoComponent
+      }
+
+
   ]
  }]
 

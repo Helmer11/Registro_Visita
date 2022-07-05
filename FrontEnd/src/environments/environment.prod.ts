@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: false,
+  AppName: 'Registro Visita',
+  ServerName: '',
+  Api: 'https://localhost:44313/'
 };
