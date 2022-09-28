@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -8,8 +9,10 @@ namespace Registro_Visita_Api.Persistencia
 {
     public partial class Registros_VisistasContext : DbContext
     {
-        public Registros_VisistasContext()
+        public string Conec { get; set; }
+        public Registros_VisistasContext(IConfiguration configuration)
         {
+            Conec = configuration.GetConnectionString("VisitaConexion");
         }
 
         public Registros_VisistasContext(DbContextOptions<Registros_VisistasContext> options)

@@ -1,4 +1,5 @@
-﻿using Registro_Visita_Api.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
+using Registro_Visita_Api.Interfaces;
 using Registro_Visita_Api.Persistencia;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,17 @@ namespace Registro_Visita_Api.Models
 {
     public class Visitante : IVisiantes
     {
+        public readonly  IConfiguration _config;
+
+        public Visitante(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
+
 
         public List<VisitantesTran> ListaVisitante()
         {
-            using( var db = new Registros_VisistasContext() )
+            using( var db = new Registros_VisistasContext(_config) )
             {
                 var listado = db.VisitantesTrans.ToList();
 
@@ -24,7 +32,7 @@ namespace Registro_Visita_Api.Models
         {
             try
             {
-                using (var db = new Registros_VisistasContext())
+                using (var db = new Registros_VisistasContext(_config))
                 {
                     var _visit = new VisitantesTran()
                     {
@@ -35,7 +43,7 @@ namespace Registro_Visita_Api.Models
                     db.VisitantesTrans.Add(_visit);
                     db.SaveChanges();
                 }
-                return "Se agrego el visitante";
+                return "1";
             } catch (Exception ex)
             {
               
@@ -44,54 +52,54 @@ namespace Registro_Visita_Api.Models
             } 
         }
 
-        public string EditarVisitante(VisitantesTran visita)
-        {
-            try
-            {
-                using (var db = new Registros_VisistasContext())
-                {
-                    var _visit = new VisitantesTran()
-                    {
-                        VisitaNombre = visita.VisitaNombre,
-                        VisitaApellido = visita.VisitaApellido,
+        //public string EditarVisitante(VisitantesTran visita)
+        //{
+        //    try
+        //    {
+        //        using (var db = new Registros_VisistasContext(_config))
+        //        {
+        //            var _visit = new VisitantesTran()
+        //            {
+        //                VisitaNombre = visita.VisitaNombre,
+        //                VisitaApellido = visita.VisitaApellido,
 
-                    };
-                    db.VisitantesTrans.Add(_visit);
-                    db.SaveChanges();
-                }
-                return "Se Actualizo del visitante";
-            } catch (Exception ex)
-            {
+        //            };
+        //            db.VisitantesTrans.Add(_visit);
+        //            db.SaveChanges();
+        //        }
+        //        return "Se Actualizo del visitante";
+        //    } catch (Exception ex)
+        //    {
               
-                throw ex.InnerException.InnerException;
-            }
+        //        throw ex.InnerException.InnerException;
+        //    }
            
-        }
+        //}
 
 
-        public string InactivarVisitante(int idVisitante)
-        {
-            try
-            {
-                using (var db = new Registros_VisistasContext())
-                {
-                    var inactivar = db.VisitantesTrans.SingleOrDefault(b => b.VisitanteId == idVisitante);
+        //public string InactivarVisitante(int idVisitante)
+        //{
+        //    try
+        //    {
+        //        using (var db = new Registros_VisistasContext(_config))
+        //        {
+        //            var inactivar = db.VisitantesTrans.SingleOrDefault(b => b.VisitanteId == idVisitante);
 
-                    if (inactivar != null)
-                    {
-                        inactivar.RegistroEstado = "A";
-                    }
-                    db.SaveChanges();
-                }
-                return "Se Actualizo del visitante";
-            }
-            catch (Exception ex)
-            {
+        //            if (inactivar != null)
+        //            {
+        //                inactivar.RegistroEstado = "A";
+        //            }
+        //            db.SaveChanges();
+        //        }
+        //        return "Se Actualizo del visitante";
+        //    }
+        //    catch (Exception ex)
+        //    {
                
-                throw ex.InnerException.InnerException;
-            }
+        //        throw ex.InnerException.InnerException;
+        //    }
 
-        }
+        //}
 
 
 

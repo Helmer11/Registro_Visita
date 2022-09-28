@@ -10,10 +10,13 @@ import { Lista_EventosComponent } from './Page/Eventos/Lista_Eventos.component';
 import { InsertarEventosComponent } from './Page/Eventos/Insertar/InsertarEventos/InsertarEventos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LayoutComponent } from './shared/layout/layout/layout.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LayoutComponent,
     Lista_VisitanteComponent,
     AddVisitanteComponent,
     Lista_EventosComponent,
@@ -27,6 +30,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot()
 
   ],
   providers: [],

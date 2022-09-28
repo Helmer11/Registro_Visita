@@ -10,6 +10,8 @@ import { VisitanteService } from './Visitante.service';
 export class Lista_VisitanteComponent implements OnInit {
 
   Visitante: VisitantesTran[] = [];
+  loading: boolean = false;
+
 
   constructor(private _visitaService: VisitanteService) { }
 
@@ -17,15 +19,14 @@ export class Lista_VisitanteComponent implements OnInit {
     this.getVisitante();
   }
 
-
-
-public getVisitante(){
-  this._visitaService.getVisitante().subscribe((res: VisitantesTran[]) => {
-    this.Visitante = res as unknown as VisitantesTran[]
-  })
+public getVisitante() {
+    this.loading = true;
+    setTimeout(() => {
+      this._visitaService.getVisitante().subscribe((res: VisitantesTran) => {
+        this.Visitante = res  as VisitantesTran[]
+      })
+      this.loading = false;
+    }, 4000);
 }
-
-
-
 
 }

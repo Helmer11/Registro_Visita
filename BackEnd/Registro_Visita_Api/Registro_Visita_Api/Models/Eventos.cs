@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Registro_Visita_Api.Interfaces;
 using Registro_Visita_Api.Persistencia;
 
@@ -10,10 +11,18 @@ namespace Registro_Visita_Api.Models
 {
     public class Eventos : IEventos
     {
+        IConfiguration _configu;
+
+        public Eventos(IConfiguration config)
+        {
+            _configu = config;
+        }
+
+
         public List<EventosTran> LisataEvento()
         {
-
-            using (var db = new Registros_VisistasContext())
+          
+           using (var db = new Registros_VisistasContext(_configu))
             {
                 var listaevento = db.EventosTrans.ToList();
 
@@ -26,7 +35,7 @@ namespace Registro_Visita_Api.Models
         {
             try
             {
-                using (var db= new Registros_VisistasContext() )
+                using (var db= new Registros_VisistasContext(_configu) )
                 {
                     var even = new EventosTran()
                     {
@@ -50,7 +59,7 @@ namespace Registro_Visita_Api.Models
         {
             try
             {
-                using (var db = new Registros_VisistasContext())
+                using (var db = new Registros_VisistasContext(_configu))
                 {
                     var even = new EventosTran()
                     {
@@ -76,7 +85,7 @@ namespace Registro_Visita_Api.Models
         {
             try
             {
-                using (var db = new Registros_VisistasContext())
+                using (var db = new Registros_VisistasContext(_configu))
                 {
                     var inactivarEvento = db.EventosTrans.SingleOrDefault(b => b.EventoId == evento_id);
 

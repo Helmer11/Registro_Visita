@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Registro_Visita_Api.Interfaces;
 using Registro_Visita_Api.Models;
 using Registro_Visita_Api.Persistencia;
+using Microsoft.Extensions.Configuration;
 
 namespace Registro_Visita_Api.Controllers
 {
@@ -13,11 +14,18 @@ namespace Registro_Visita_Api.Controllers
     [Route("[controller]")]
     public class VisitanteController : Controller
     {
+        IConfiguration _configu;
+
+        public VisitanteController(IConfiguration config)
+        {
+            _configu = config;
+        }
+
         [HttpGet]
         [Route("Lista")]
         public ActionResult ListadoVisitante()
         {
-            IVisiantes visit = new Visitante();
+            IVisiantes visit = new Visitante(_configu);
 
             var list = visit.ListaVisitante();
             
@@ -29,7 +37,7 @@ namespace Registro_Visita_Api.Controllers
         public ActionResult InsertarVisitante(VisitantesTran visit)
         {
 
-            IVisiantes visitante = new Visitante();
+            IVisiantes visitante = new Visitante(_configu);
 
           var insertarVisitante =   visitante.AgregarVisitante(visit);
 
@@ -43,7 +51,7 @@ namespace Registro_Visita_Api.Controllers
         public ActionResult EditarVisitante(VisitantesTran visit)
         {
 
-            IVisiantes visitante = new Visitante();
+            IVisiantes visitante = new Visitante(_configu);
 
             var editaVisitante = visitante.EditarVisitante(visit);
 
@@ -55,7 +63,7 @@ namespace Registro_Visita_Api.Controllers
         public ActionResult InactivaVisitante(int visit)
         {
 
-            IVisiantes visitante = new Visitante();
+            IVisiantes visitante = new Visitante(_configu);
 
             var inactivaVisitante = visitante.InactivarVisitante(visit);
 

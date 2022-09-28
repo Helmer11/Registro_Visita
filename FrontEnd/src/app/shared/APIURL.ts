@@ -9,7 +9,7 @@ export let APIURL = {
 
 Visitante: {
   lista: BASEURL + 'Visitante/Lista',
-  Agregar: BASEURL + '/Visitante/Agregar',
+  Agregar: BASEURL + 'Visitante/Agregar',
   editar: BASEURL + '/Visitante/Edita',
   inactivar: BASEURL + '/Visitante/Inactiva'
 },

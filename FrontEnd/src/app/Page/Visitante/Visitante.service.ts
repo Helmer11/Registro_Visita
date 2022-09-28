@@ -13,7 +13,7 @@ constructor(private _http: HttpClient ) { }
 
 
 public getVisitante(){
-  return this._http.get<VisitantesTran[]>(APIURL.Visitante.lista);
+  return this._http.get(APIURL.Visitante.lista);
 }
 
 public setVisitante(visi: VisitantesTran){

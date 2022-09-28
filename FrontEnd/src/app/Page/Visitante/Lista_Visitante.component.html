@@ -14,6 +14,10 @@
       </tr>
     </thead>
     <tbody>
+<div *ngIf="loading" class="loading" >
+  <div class="lds-hourglass"></div>
+</div>
+
       <tr *ngFor="let v of Visitante " >
         <th scope="row">{{v.visitanteId}} </th>
         <td>{{ v.visitaNombre }}</td>

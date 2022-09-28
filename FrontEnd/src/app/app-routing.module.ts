@@ -4,27 +4,36 @@ import { Lista_VisitanteComponent } from './Page/Visitante/Lista_Visitante.compo
 import { LayoutComponent } from './shared/layout/layout/layout.component';
 import { Lista_EventosComponent } from './Page/Eventos/Lista_Eventos.component';
 import { HistoricoComponent } from './Page/Historico/Historico.component';
+import { AddVisitanteComponent } from './Page/Visitante/Agregar/AddVisitante/AddVisitante.component';
 
- export const routes: Routes = [{
+ export const routes: Routes = [
+  {
     path : "",
     component: LayoutComponent,
     children: [
       {
-        path: "Visitante",
-        component: Lista_VisitanteComponent,
+        path: "visitante",
+        component: Lista_VisitanteComponent
       },
       {
-        path:"Eventos",
-        component: Lista_EventosComponent
+        path: "Eventos",
+        component: AddVisitanteComponent
       },
       {
-        path:"Historico",
-        component: HistoricoComponent
+        path: "Agregar",
+        component: AddVisitanteComponent
+      },
+      {
+        path: "**",
+        redirectTo: "",
+        pathMatch: "full"
       }
+    ]
+  }
 
 
-  ]
- }]
+
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
