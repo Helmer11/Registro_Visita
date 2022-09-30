@@ -9,8 +9,15 @@ import { VisitantesTran } from '../../Models/Visitante';
 })
 export class VisitanteService {
 
-constructor(private _http: HttpClient ) { }
 
+  filtroVisitante: any = {
+    PageIndex: 1,
+    PageSize: 10,
+    Linea:0
+
+  }
+
+constructor(private _http: HttpClient ) { }
 
 public getVisitante(){
   return this._http.get(APIURL.Visitante.lista);
@@ -20,8 +27,6 @@ public setVisitante(visi: VisitantesTran){
   const headerOptions = new HttpHeaders({'Content-Type':'application/json'});
   return this._http.post(APIURL.Visitante.Agregar, visi, {headers: headerOptions })
 }
-
-
 
 
 

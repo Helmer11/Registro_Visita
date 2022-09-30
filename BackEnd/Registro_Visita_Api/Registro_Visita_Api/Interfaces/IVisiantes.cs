@@ -9,11 +9,11 @@ namespace Registro_Visita_Api.Interfaces
     interface IVisiantes
     {
 
-        public List<VisitantesTran> ListaVisitante();
+        IEnumerable<VisitantesTran> ListaVisitante();
 
         string AgregarVisitante(VisitantesTran visita);
-        string EditarVisitante(VisitantesTran visita);
-        string InactivarVisitante(int idVisitante);
+        //string EditarVisitante(VisitantesTran visita);
+        //string InactivarVisitante(int idVisitante);
 
     }
 }

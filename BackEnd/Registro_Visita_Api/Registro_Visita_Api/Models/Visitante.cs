@@ -18,11 +18,11 @@ namespace Registro_Visita_Api.Models
         }
 
 
-        public List<VisitantesTran> ListaVisitante()
+        public IEnumerable<VisitantesTran> ListaVisitante()
         {
             using( var db = new Registros_VisistasContext(_config) )
             {
-                var listado = db.VisitantesTrans.ToList();
+                var listado = db.VisitantesTrans.ToList().OrderByDescending(x=> x.VisitanteId);
 
                 return listado;
             }
