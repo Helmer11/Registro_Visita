@@ -19,15 +19,27 @@ export class VisitanteService {
 
 constructor(private _http: HttpClient ) { }
 
-public getVisitante(){
-  return this._http.get(APIURL.Visitante.lista);
+public getVisitante(nombreVisitante: string ){
+  return this._http.get(APIURL.Visitante.lista + nombreVisitante);
 }
 
-public setVisitante(visi: VisitantesTran){
+public getVisitanteDetalle(id: number ){
+  return this._http.get(APIURL.Visitante.detalle + id);
+}
+
+public setVisitante(visi: VisitantesTran) {
   const headerOptions = new HttpHeaders({'Content-Type':'application/json'});
   return this._http.post(APIURL.Visitante.Agregar, visi, {headers: headerOptions })
 }
 
+public setEditaVisita(idVisitante: VisitantesTran){
+  const headerOptions = new HttpHeaders({'Content-Type':'application/json'});
+  return this._http.put(APIURL.Visitante.editar, idVisitante, {headers: headerOptions })
+}
+
+public setEliminarVisitante(idVisitante: number){
+  return this._http.delete(APIURL.Visitante.inactivar)
+}
 
 
 }

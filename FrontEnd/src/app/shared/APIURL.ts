@@ -8,7 +8,8 @@ export let BASEURL = environment.Api;
 export let APIURL = {
 
 Visitante: {
-  lista: BASEURL + 'Visitante/Lista',
+  lista: BASEURL + 'Visitante/Lista?nombreVisitante=',
+  detalle: BASEURL + 'Visitante/detalle?id=',
   Agregar: BASEURL + 'Visitante/Agregar',
   editar: BASEURL + '/Visitante/Edita',
   inactivar: BASEURL + '/Visitante/Inactiva'

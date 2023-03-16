@@ -23,12 +23,23 @@ namespace Registro_Visita_Api.Controllers
 
         [HttpGet]
         [Route("Lista")]
-        public ActionResult ListadoVisitante()
+        public ActionResult ListadoVisitante(string nombreVisitante)
         {
             IVisiantes visit = new Visitante(_configu);
 
-            var list = visit.ListaVisitante();
+            var list = visit.ListaVisitante(nombreVisitante);
             
+            return Ok(list);
+        }
+
+        [HttpGet]
+        [Route("detalle")]
+        public ActionResult getDetalleVisitante(int id)
+        {
+            IVisiantes visit = new Visitante(_configu);
+
+            var list = visit.getDetalleVisitante(id);
+
             return Ok(list);
         }
 
@@ -66,7 +77,7 @@ namespace Registro_Visita_Api.Controllers
 
         //    var inactivaVisitante = visitante.InactivarVisitante(visit);
 
-        //    return Ok(inactivaVisitante);
+        //    return Ok(inactiv0aVisitante);
 
         //}
 

@@ -1,10 +1,25 @@
 
-<div class="addbutton">
-  <button type="button" class="btn btn-primary m-5" data-bs-toggle="modal" data-bs-target="#exampleModal" >Agregar Visitante</button>
+<section class="container">
+
+
+  <div class="addbutton">
+    <button type="button" class="btn btn-primary m-5" data-bs-toggle="modal" data-bs-target="#exampleModal" >Agregar Visitante</button>
+  </div>
+
+
+<div class="row">
+  <div class="col-xs-5 mb-3">
+    <form [formGroup]="ListaForm" >
+      <input type="text" class="form-control"  name="Buscar" placeholder="Nombre" formControlName="NombreVisitante">
+      <button class="bt btn-info" (click)="BuscarVisitante()"><i class="fa fa-search" aria-hidden="true"></i></button>
+      <button class="btn btn-outline-primary" (click)="ActualizarCampo()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+    </form>
+
+  </div>
 </div>
 
 
-<section class="container">
+
   <table class="table">
     <thead>
       <tr>
@@ -21,16 +36,21 @@
 </div>
 
       <tr *ngFor="let v of Visitante  | paginate: {itemsPerPage: _visitaService.filtroVisitante.PageSize, currentPage: indice, totalItems: cantidadRegistro }">
-        <th scope="row">{{v.visitanteId}} </th>
+        <th scope="row">{{ v.visitanteId }} </th>
         <td>{{ v.visitaNombre }}</td>
         <td>{{ v.visitaApellido }}</td>
         <td>{{ v.registroFecha | date }}</td>
         <td>{{ v.registroFecha | date: "shortTime" }}</td>
+        <td>
+          <span (click)="VisitanteEdita(v.visitanteId)">
+          <i class="fa fa-pencil" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+        </span></td>
+        <td><i class="fa fa-trash" aria-hidden="true"></i></td>
       </tr>
     </tbody>
   </table>
 
-  <div class="my-pagination mr-5" *ngIf="Visitante.length > 0" >
+  <div class="my-pagination mr-5" *ngIf="Visitante.length > 0">
     <pagination-controls (pageChange)="indice = $event;
     BuscarVisitante()"
     previousLabel="Anterior"
@@ -49,7 +69,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-AddVisitante></app-AddVisitante>
+        <app-AddVisitante ></app-AddVisitante>
       </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
