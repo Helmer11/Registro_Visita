@@ -33,6 +33,7 @@ public setVisitante(visi: VisitantesTran) {
 }
 
 public setEditaVisita(idVisitante: VisitantesTran){
+
   const headerOptions = new HttpHeaders({'Content-Type':'application/json'});
   return this._http.put(APIURL.Visitante.editar, idVisitante, {headers: headerOptions })
 }

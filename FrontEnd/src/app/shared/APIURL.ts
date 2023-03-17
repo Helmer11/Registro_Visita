@@ -11,8 +11,8 @@ Visitante: {
   lista: BASEURL + 'Visitante/Lista?nombreVisitante=',
   detalle: BASEURL + 'Visitante/detalle?id=',
   Agregar: BASEURL + 'Visitante/Agregar',
-  editar: BASEURL + '/Visitante/Edita',
-  inactivar: BASEURL + '/Visitante/Inactiva'
+  editar: BASEURL + 'Visitante/Edita',
+  inactivar: BASEURL + 'Visitante/Inactiva'
 },
 Eventos: {
   lista: BASEURL + 'Eventos/Lista',

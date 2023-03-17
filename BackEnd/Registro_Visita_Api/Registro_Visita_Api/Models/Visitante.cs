@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Registro_Visita_Api.Interfaces;
 using Registro_Visita_Api.Persistencia;
 using System;
@@ -22,25 +23,19 @@ namespace Registro_Visita_Api.Models
             string visitaNombre = nombreVisitante != null ? nombreVisitante : nombreVisitante = "";
             using( var db = new Registros_VisistasContext(_config) )
             {
-                var listado = db.VisitantesTrans.Where(w => w.VisitaNombre.StartsWith(visitaNombre)).ToList().OrderByDescending(x => x.VisitanteId);
+                var listado =  db.VisitantesTrans.Where(w => w.VisitaNombre.StartsWith(visitaNombre)).OrderByDescending(x => x.VisitanteId).ToList();
 
                 return listado;
             }
         }
 
-        public VisitantesTran getDetalleVisitante(int visitaID)
+        public List<VisitantesTran> getDetalleVisitante(int visitaID)
         {
             using( var db = new Registros_VisistasContext( _config) )
             {
-                var detalle = db.VisitantesTrans.Where(q => q.VisitanteId == visitaID).Select(t => new 
-                {
-                    t.VisitanteId,
-                    t.VisitaNombre,
-                    t.VisitaApellido,
-                    t.RegistroFecha
-                });
-                
-                return (VisitantesTran) detalle;
+                var detalle = db.VisitantesTrans.Where(q => q.VisitanteId == visitaID).ToList();
+
+                return detalle;
             }
         }
 
@@ -74,25 +69,24 @@ namespace Registro_Visita_Api.Models
             {
                 using (var db = new Registros_VisistasContext(_config))
                 {
-                    var _visit = new VisitantesTran()
-                    {
-                        VisitaNombre = visita.VisitaNombre,
-                        VisitaApellido = visita.VisitaApellido,
+                    var result = db.VisitantesTrans.Where(x => x.VisitanteId == visita.VisitanteId).FirstOrDefault();
 
-                    };
-                    db.VisitantesTrans.Add(_visit);
+                    result.VisitaNombre = visita.VisitaNombre;
+                    result.VisitaApellido = visita.VisitaApellido;
+                    result.RegistroFecha = visita.RegistroFecha;
+                    result.RegistroEstado = visita.RegistroEstado;
+                    result.RegistroUsuario = visita.RegistroUsuario;
+                    
                     db.SaveChanges();
                 }
-                return "Se Actualizo del visitante";
+                return "1";
             }
             catch (Exception ex)
             {
-
-                throw ex.InnerException.InnerException;
+                throw new Exception(ex.Message);
             }
 
         }
-
 
         public string InactivarVisitante(int idVisitante)
         {
@@ -108,12 +102,12 @@ namespace Registro_Visita_Api.Models
                     }
                     db.SaveChanges();
                 }
-                return "Se Actualizo del visitante";
+                return "1";
             }
             catch (Exception ex)
             {
 
-                throw ex.InnerException.InnerException;
+                throw new Exception(ex.Message);
             }
 
         }

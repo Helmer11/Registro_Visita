@@ -56,30 +56,29 @@ namespace Registro_Visita_Api.Controllers
 
         }
 
+        [HttpPut]
+        [Route("Edita")]
+        public ActionResult EditarVisitante(VisitantesTran visit)
+        {
+            IVisiantes visitante = new Visitante(_configu);
 
-        //[HttpPut]
-        //[Route("Edita")]
-        //public ActionResult EditarVisitante(VisitantesTran visit)
-        //{
-        //    IVisiantes visitante = new Visitante(_configu);
+            var editaVisitante = visitante.EditarVisitante(visit);
 
-        //    var editaVisitante = visitante.EditarVisitante(visit);
-
-        //    return Ok(editaVisitante);
-        //}
+            return Ok(editaVisitante);
+        }
 
 
-        //[HttpPost]
-        //[Route("Inactiva")]
-        //public ActionResult InactivaVisitante(int visit)
-        //{
-        //    IVisiantes visitante = new Visitante(_configu);
+        [HttpPost]
+        [Route("Inactiva")]
+        public ActionResult InactivaVisitante(int visit)
+        {
+            IVisiantes visitante = new Visitante(_configu);
 
-        //    var inactivaVisitante = visitante.InactivarVisitante(visit);
+            var inactivar = visitante.InactivarVisitante(visit);
 
-        //    return Ok(inactiv0aVisitante);
+            return Ok(inactivar);
 
-        //}
+        }
 
 
 

@@ -13,9 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddVisitanteComponent implements OnInit {
 
-formEvento!: FormGroup;
-visitanteID!: number;
-detalleVisitante!: VisitantesTran;
+formVisita!: FormGroup;
+visitanteID: number = 0;
+detalleVisitante: VisitantesTran[] = [];
 
 constructor(private _formB: FormBuilder, private _VisitaService: VisitanteService,
             private _toast: ToastrService, private _router: ActivatedRoute) {
@@ -26,10 +26,10 @@ ngOnInit(): void {
 }
 
 public Formu(){
-  this.formEvento = this._formB.group({
+  this.formVisita = this._formB.group({
     visitanteNombre: ['', Validators.required],
     visitanteApellido: ['',Validators.required],
-    Visitantefecha: ['',Validators.required],
+    visitantefecha: ['',Validators.required],
     //hora:['',Validators.required]
   })
 }
@@ -37,10 +37,11 @@ public Formu(){
 
 public setAddVisitante(){
   let evento = {
-    visitaNombre: this.formEvento.value.visitanteNombre,
-    visitaApellido: this.formEvento.value.visitanteApellido,
-    Visitantefecha: this.formEvento.value.Visitantefecha,
+    visitaNombre: this.formVisita.value.visitanteNombre,
+    visitaApellido: this.formVisita.value.visitanteApellido,
+    registroFecha: this.formVisita.value.Visitantefecha,
     //registroHora: this.formEvento.value.Hora
+
   }
 this._VisitaService.setVisitante(evento).subscribe(res => {
   if(res.valueOf() == "1"){
@@ -54,13 +55,50 @@ window.location.reload();
 
 
 public getDetalleVisitante(visitaID: number) {
+  this.visitanteID = visitaID;
+  this._VisitaService.getVisitanteDetalle(visitaID).subscribe( res => {
+       this.detalleVisitante = res as VisitantesTran[]
 
-  this._VisitaService.getVisitanteDetalle(visitaID).subscribe((res: VisitantesTran) => {
-         console.log(res.visitaNombre);
-
-          res.visitaApellido,
-        res.registroFecha
+       this.formVisita.patchValue({
+        visitanteNombre:    this.detalleVisitante[0].visitaNombre,
+        visitanteApellido:  this.detalleVisitante[0].visitaApellido,
+        visitantefecha:     this.detalleVisitante[0].registroFecha
+      })
   })
 }
 
+public setUpdateVisitante(){
+  let evento = {
+    visitanteId: this.visitanteID,
+    visitaNombre: this.formVisita.value.visitanteNombre,
+    visitaApellido: this.formVisita.value.visitanteApellido,
+    registroFecha: this.formVisita.value.visitantefecha,
+    registroEstado: 'A',
+    registroUsuario: 'hsalas'
+    //registroHora: this.formEvento.value.Hora
+
+  }
+this._VisitaService.setEditaVisita(evento).subscribe(res => {
+  if(res.valueOf() == "1"){
+this._toast.success("Se Actualizo el registro", "Exito");
+  }
+},err=> {
+  this._toast.error("Error al momento de actualizar al visitante", "Error");
+})
+window.location.reload();
 }
+
+public getDeleteVisitante(id: number){
+  this._VisitaService.setEliminarVisitante(id).subscribe(res => {
+    if(res.valueOf() == "1"){
+      this._toast.success("Se Elimino El registro ", "Exito");
+        }
+      },err=> {
+        this._toast.error("Error al momento de agregar al visitante", "Error");
+      })
+      window.location.reload();
+
+      }
+}
+
+

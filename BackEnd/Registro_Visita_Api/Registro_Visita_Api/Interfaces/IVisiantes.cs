@@ -10,7 +10,7 @@ namespace Registro_Visita_Api.Interfaces
     {
 
         IEnumerable<VisitantesTran> ListaVisitante(string nombreVisitante);
-        VisitantesTran getDetalleVisitante(int visitaID);
+        List<VisitantesTran> getDetalleVisitante(int visitaID);
 
         string AgregarVisitante(VisitantesTran visita);
         string EditarVisitante(VisitantesTran visita);
