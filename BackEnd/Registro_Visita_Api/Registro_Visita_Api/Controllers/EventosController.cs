@@ -15,10 +15,12 @@ namespace Registro_Visita_Api.Controllers
     public class EventosController : Controller
     {
         IConfiguration _configu;
+        IEventos _ev;
 
         public EventosController(IConfiguration config)
         {
             _configu = config;
+             _ev = new Eventos(_configu);
         }
 
 
@@ -26,9 +28,7 @@ namespace Registro_Visita_Api.Controllers
         [Route("Lista")]
         public ActionResult ListaEvento()
         {
-            IEventos ev = new Eventos(_configu);
-
-            var list = ev.LisataEvento();
+            var list = _ev.LisataEvento();
 
             return Ok(list);
         }
@@ -37,9 +37,7 @@ namespace Registro_Visita_Api.Controllers
         [Route("Inserta")]
         public ActionResult InsertarEvento([FromBody]  EventosTran evento)
         {
-            IEventos ev = new Eventos(_configu);
-
-            var inserta = ev.AgregarEvento(evento);
+            var inserta = _ev.AgregarEvento(evento);
 
             return Ok(inserta);
         }
@@ -48,9 +46,7 @@ namespace Registro_Visita_Api.Controllers
         [Route("Edita")]
         public ActionResult EditaEvento([FromBody]  EventosTran evento)
         {
-            IEventos ev = new Eventos(_configu);
-
-            var edita = ev.EditaEvento(evento);
+            var edita = _ev.EditaEvento(evento);
 
             return Ok(edita);
         }
@@ -60,9 +56,7 @@ namespace Registro_Visita_Api.Controllers
         [Route("Inactiva")]
         public ActionResult InactivaEvento(int idEvento)
         {
-            IEventos ev = new Eventos(_configu);
-
-            var inactivar = ev.InactivarEvento(idEvento);
+            var inactivar = _ev.InactivarEvento(idEvento);
 
             return Ok(inactivar);
         }

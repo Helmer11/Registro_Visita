@@ -14,20 +14,23 @@ namespace Registro_Visita_Api.Controllers
     [Route("[controller]")]
     public class VisitanteController : Controller
     {
+        
         IConfiguration _configu;
+        IVisiantes _visit;
 
         public VisitanteController(IConfiguration config)
         {
             _configu = config;
+            _visit = new Visitante(_configu);
         }
 
         [HttpGet]
         [Route("Lista")]
         public ActionResult ListadoVisitante(string nombreVisitante)
         {
-            IVisiantes visit = new Visitante(_configu);
+           // IVisiantes visit = new Visitante(_configu);
 
-            var list = visit.ListaVisitante(nombreVisitante);
+            var list = _visit.ListaVisitante(nombreVisitante);
             
             return Ok(list);
         }
@@ -36,9 +39,8 @@ namespace Registro_Visita_Api.Controllers
         [Route("detalle")]
         public ActionResult getDetalleVisitante(int id)
         {
-            IVisiantes visit = new Visitante(_configu);
 
-            var list = visit.getDetalleVisitante(id);
+            var list = _visit.getDetalleVisitante(id);
 
             return Ok(list);
         }
@@ -47,10 +49,7 @@ namespace Registro_Visita_Api.Controllers
         [Route("Agregar")]
         public ActionResult InsertarVisitante(VisitantesTran visit)
         {
-
-            IVisiantes visitante = new Visitante(_configu);
-
-          var insertarVisitante =   visitante.AgregarVisitante(visit);
+          var insertarVisitante =   _visit.AgregarVisitante(visit);
 
           return  Ok(insertarVisitante);
 
@@ -60,9 +59,7 @@ namespace Registro_Visita_Api.Controllers
         [Route("Edita")]
         public ActionResult EditarVisitante(VisitantesTran visit)
         {
-            IVisiantes visitante = new Visitante(_configu);
-
-            var editaVisitante = visitante.EditarVisitante(visit);
+            var editaVisitante = _visit.EditarVisitante(visit);
 
             return Ok(editaVisitante);
         }
@@ -72,9 +69,7 @@ namespace Registro_Visita_Api.Controllers
         [Route("Inactiva")]
         public ActionResult InactivaVisitante(int visit)
         {
-            IVisiantes visitante = new Visitante(_configu);
-
-            var inactivar = visitante.InactivarVisitante(visit);
+            var inactivar = _visit.InactivarVisitante(visit);
 
             return Ok(inactivar);
 

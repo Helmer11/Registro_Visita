@@ -9,7 +9,8 @@ namespace Registro_Visita_Api.Interfaces
 {
     interface IHistorico
     {
-
         List<HistoricoVisitum> ListaHistorico();
+
+
     }
 }
