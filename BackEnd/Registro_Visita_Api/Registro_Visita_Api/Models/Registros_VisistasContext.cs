@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
-namespace Registro_Visita_Api.Persistencia
+namespace Registro_Visita_Api.Models
 {
     public partial class Registros_VisistasContext : DbContext
     {

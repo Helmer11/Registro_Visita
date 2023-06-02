@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Registro_Visita_Api.Interfaces;
 using Registro_Visita_Api.Models;
-using Registro_Visita_Api.Persistencia;
+using Registro_Visita_Api.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace Registro_Visita_Api.Controllers
@@ -28,40 +28,66 @@ namespace Registro_Visita_Api.Controllers
         [Route("Lista")]
         public ActionResult ListadoVisitante(string nombreVisitante)
         {
-           // IVisiantes visit = new Visitante(_configu);
+            try
+            {
+                var list = _visit.ListaVisitante(nombreVisitante);
+                return Ok(list);
 
-            var list = _visit.ListaVisitante(nombreVisitante);
-            
-            return Ok(list);
+            } catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message); 
+            }
+
         }
 
         [HttpGet]
         [Route("detalle")]
         public ActionResult getDetalleVisitante(int id)
         {
+            try
+            {
 
-            var list = _visit.getDetalleVisitante(id);
+                var list = _visit.getDetalleVisitante(id);
 
-            return Ok(list);
+                return Ok(list);
+            } catch(Exception ex)
+            {
+                return StatusCode(500,ex.Message);
+            }
+
+
         }
 
         [HttpPost]
         [Route("Agregar")]
         public ActionResult InsertarVisitante(VisitantesTran visit)
         {
-          var insertarVisitante =   _visit.AgregarVisitante(visit);
+            try
+            {
+                var insertarVisitante = _visit.AgregarVisitante(visit);
 
-          return  Ok(insertarVisitante);
-
+                return Ok(insertarVisitante);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("Edita")]
         public ActionResult EditarVisitante(VisitantesTran visit)
         {
-            var editaVisitante = _visit.EditarVisitante(visit);
+            try
+            {
+                var editaVisitante = _visit.EditarVisitante(visit);
 
-            return Ok(editaVisitante);
+                return Ok(editaVisitante);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }   
         }
 
 
@@ -69,13 +95,18 @@ namespace Registro_Visita_Api.Controllers
         [Route("Inactiva")]
         public ActionResult InactivaVisitante(int visit)
         {
-            var inactivar = _visit.InactivarVisitante(visit);
+            try
+            {
 
-            return Ok(inactivar);
+                var inactivar = _visit.InactivarVisitante(visit);
+
+                return Ok(inactivar);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
 
         }
-
-
-
     }
 }

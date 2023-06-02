@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Registro_Visita_Api.Interfaces;
-using Registro_Visita_Api.Persistencia;
+using Registro_Visita_Api.Models;
+using Registro_Visita_Api.Services;
 
 
-namespace Registro_Visita_Api.Models
+namespace Registro_Visita_Api.Services
 {
     public class Eventos : IEventos
     {
-        IConfiguration _configu;
+        private readonly IConfiguration _configu;
 
         public Eventos(IConfiguration config)
         {
@@ -21,8 +22,8 @@ namespace Registro_Visita_Api.Models
 
         public List<EventosTran> LisataEvento()
         {
-          
-           using (var db = new Registros_VisistasContext(_configu))
+
+            using (var db = new Registros_VisistasContext(_configu))
             {
                 var listaevento = db.EventosTrans.ToList();
 
@@ -35,7 +36,7 @@ namespace Registro_Visita_Api.Models
         {
             try
             {
-                using (var db= new Registros_VisistasContext(_configu) )
+                using (var db = new Registros_VisistasContext(_configu))
                 {
                     var even = new EventosTran()
                     {
@@ -49,9 +50,10 @@ namespace Registro_Visita_Api.Models
                     db.SaveChanges();
                     return "Se Agrego el evento";
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                throw ex.InnerException.InnerException;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -71,12 +73,12 @@ namespace Registro_Visita_Api.Models
 
                     db.EventosTrans.Add(even);
                     db.SaveChanges();
-                    return "Se Agrego el evento";
+                    return "Se actualizo el evento";
                 }
             }
             catch (Exception ex)
             {
-                throw ex.InnerException.InnerException;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -91,16 +93,15 @@ namespace Registro_Visita_Api.Models
 
                     if (inactivarEvento != null)
                     {
-                        inactivarEvento.RegistroEstado = "A";
+                        inactivarEvento.RegistroEstado = "I";
                     }
                     db.SaveChanges();
                 }
-                return "Se Actualizo del visitante";
+                return "Fue eliminado el visitante";
             }
             catch (Exception ex)
             {
-
-                throw ex.InnerException.InnerException;
+                throw new Exception(ex.Message);
             }
 
         }
@@ -109,7 +110,7 @@ namespace Registro_Visita_Api.Models
 
 
     }
-    }
+}
 
 
 

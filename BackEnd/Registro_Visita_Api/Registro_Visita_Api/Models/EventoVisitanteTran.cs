@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Registro_Visita_Api.Persistencia
+namespace Registro_Visita_Api.Models
 {
     public partial class EventoVisitanteTran
     {

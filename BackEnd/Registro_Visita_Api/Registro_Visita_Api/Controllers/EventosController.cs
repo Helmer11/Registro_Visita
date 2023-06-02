@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Registro_Visita_Api.Interfaces;
 using Registro_Visita_Api.Models;
-using Registro_Visita_Api.Persistencia;
+using Registro_Visita_Api.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace Registro_Visita_Api.Controllers
@@ -28,27 +28,46 @@ namespace Registro_Visita_Api.Controllers
         [Route("Lista")]
         public ActionResult ListaEvento()
         {
-            var list = _ev.LisataEvento();
+            try
+            {
+                var list = _ev.LisataEvento();
+                return Ok(list);
 
-            return Ok(list);
+            } catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
         }
 
         [HttpPost]
         [Route("Inserta")]
         public ActionResult InsertarEvento([FromBody]  EventosTran evento)
         {
-            var inserta = _ev.AgregarEvento(evento);
+            try
+            {
+                var inserta = _ev.AgregarEvento(evento);
+                return Ok(inserta);
 
-            return Ok(inserta);
+            } catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("Edita")]
         public ActionResult EditaEvento([FromBody]  EventosTran evento)
         {
-            var edita = _ev.EditaEvento(evento);
+            try
+            {
+                var edita = _ev.EditaEvento(evento);
+                 return Ok(edita);
 
-            return Ok(edita);
+            } catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            } 
         }
 
 
@@ -56,9 +75,18 @@ namespace Registro_Visita_Api.Controllers
         [Route("Inactiva")]
         public ActionResult InactivaEvento(int idEvento)
         {
-            var inactivar = _ev.InactivarEvento(idEvento);
+            try
+            {
+                var inactivar = _ev.InactivarEvento(idEvento);
 
-            return Ok(inactivar);
+                return Ok(inactivar);
+
+            } catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+            
         }
 
 

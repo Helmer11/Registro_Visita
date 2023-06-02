@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Registro_Visita_Api.Interfaces;
-using Registro_Visita_Api.Persistencia;
+using Registro_Visita_Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Registro_Visita_Api.Models
+namespace Registro_Visita_Api.Services
 {
     public class Visitante : IVisiantes
     {
-        public readonly  IConfiguration _config;
+        public readonly IConfiguration _config;
 
         public Visitante(IConfiguration configuration)
         {
@@ -21,9 +21,9 @@ namespace Registro_Visita_Api.Models
         public IEnumerable<VisitantesTran> ListaVisitante(string nombreVisitante)
         {
             string visitaNombre = nombreVisitante != null ? nombreVisitante : nombreVisitante = "";
-            using( var db = new Registros_VisistasContext(_config) )
+            using (var db = new Registros_VisistasContext(_config))
             {
-                var listado =  db.VisitantesTrans.Where(w => w.VisitaNombre.StartsWith(visitaNombre)).OrderByDescending(x => x.VisitanteId).ToList();
+                var listado = db.VisitantesTrans.Where(w => w.VisitaNombre.StartsWith(visitaNombre)).OrderByDescending(x => x.VisitanteId).ToList();
 
                 return listado;
             }
@@ -31,7 +31,7 @@ namespace Registro_Visita_Api.Models
 
         public List<VisitantesTran> getDetalleVisitante(int visitaID)
         {
-            using( var db = new Registros_VisistasContext( _config) )
+            using (var db = new Registros_VisistasContext(_config))
             {
                 var detalle = db.VisitantesTrans.Where(q => q.VisitanteId == visitaID).ToList();
 
@@ -54,13 +54,13 @@ namespace Registro_Visita_Api.Models
                     db.VisitantesTrans.Add(_visit);
                     db.SaveChanges();
                 }
-                return "1";
-            } catch (Exception ex)
-            {
-              
-                throw ex.InnerException.InnerException;
+                return "Se Agrego correctamente la visita";
 
-            } 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public string EditarVisitante(VisitantesTran visita)
@@ -76,10 +76,10 @@ namespace Registro_Visita_Api.Models
                     result.RegistroFecha = visita.RegistroFecha;
                     result.RegistroEstado = visita.RegistroEstado;
                     result.RegistroUsuario = visita.RegistroUsuario;
-                    
+
                     db.SaveChanges();
                 }
-                return "1";
+                return "Se actualizo el registro del visitante";
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace Registro_Visita_Api.Models
                     }
                     db.SaveChanges();
                 }
-                return "1";
+                return "Se elimino correctamente el visitante";
             }
             catch (Exception ex)
             {
